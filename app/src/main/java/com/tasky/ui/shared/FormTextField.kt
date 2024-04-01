@@ -2,7 +2,6 @@ package com.tasky.ui.shared
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -34,6 +33,7 @@ fun FormTextField(
     onValueChange: (TextFieldValue) -> Unit,
     isError: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    supportingText: @Composable () -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
     paddingValues: PaddingValues = PaddingValues(),
     visualTransformation: VisualTransformation = VisualTransformation.None
@@ -47,12 +47,12 @@ fun FormTextField(
         modifier = modifier
             .fillMaxWidth()
             .padding(paddingValues)
-            .height(63.dp)
             .focusRequester(focusRequester),
         value = textFieldValue,
         shape = RoundedCornerShape(10.dp),
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
+        supportingText = supportingText,
         isError = isError,
         visualTransformation = visualTransformation,
         placeholder = { Text(label) },

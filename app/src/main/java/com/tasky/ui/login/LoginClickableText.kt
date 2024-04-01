@@ -34,6 +34,7 @@ fun LoginClickableText(navController: NavController) {
                 val text = stringResource(id = R.string.sign_up_question)
                 append(text)
             }
+            append(" ")
             withStyle(style = SpanStyle(color = Blue)) {
                 val text = stringResource(id = R.string.sign_up)
                 append(text)
