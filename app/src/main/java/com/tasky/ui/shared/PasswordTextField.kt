@@ -16,12 +16,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tasky.R
 import com.tasky.ui.theme.LightGray3
 import com.tasky.ui.theme.Red
 
@@ -33,7 +35,7 @@ fun PasswordTextField(validatePassword: Boolean) {
 
     FormTextField(
         textFieldValue = password,
-        label = "Password",
+        label = stringResource(id = R.string.password),
         onValueChange = { value: TextFieldValue ->
             password = value
             isPasswordValid = isValidPassword(password.text)
@@ -63,8 +65,9 @@ fun PasswordTextField(validatePassword: Boolean) {
     )
 
     if (!isPasswordValid && validatePassword) {
+        // TODO improve this: maybe a tooltip?
         Text(
-            text = "Password needs lowercase and uppercase letters plus at least one digit",
+            text = stringResource(id = R.string.password_error),
             color = Red,
             style = TextStyle(fontSize = 11.sp),
             modifier = Modifier.padding(horizontal = 16.dp)

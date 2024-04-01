@@ -1,9 +1,12 @@
 package com.tasky.ui.register
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.tasky.R
 import com.tasky.ui.shared.RoundedHeaderComposable
 
 @Composable
 fun RegisterHeader() {
-    RoundedHeaderComposable("Create your account")
+    val text = stringResource(id = R.string.create_your_account)
+    RoundedHeaderComposable(text = text)
 }

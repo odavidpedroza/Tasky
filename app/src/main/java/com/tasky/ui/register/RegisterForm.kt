@@ -16,7 +16,3 @@ fun RegisterForm() {
         }
     }
 }
-
-fun isValidName(name: String): Boolean {
-    return name.length in 4..50
-}

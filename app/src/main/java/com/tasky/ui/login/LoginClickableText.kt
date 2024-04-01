@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -12,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.tasky.R
 import com.tasky.navigation.Screen
 import com.tasky.ui.theme.Blue
 import com.tasky.ui.theme.LightGray1
@@ -29,10 +31,12 @@ fun LoginClickableText(navController: NavController) {
             .padding(32.dp),
         text = buildAnnotatedString {
             withStyle(style = SpanStyle(color = LightGray3)) {
-                append("DON'T HAVE AN ACCOUNT? ")
+                val text = stringResource(id = R.string.sign_up_question)
+                append(text)
             }
             withStyle(style = SpanStyle(color = Blue)) {
-                append("SIGN UP")
+                val text = stringResource(id = R.string.sign_up)
+                append(text)
             }
         }
     )

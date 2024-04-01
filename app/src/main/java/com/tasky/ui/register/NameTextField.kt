@@ -14,9 +14,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.tasky.R
 import com.tasky.ui.shared.FormTextField
 import com.tasky.ui.theme.Green
 
@@ -27,12 +29,12 @@ fun NameTextField(requestFocus: Boolean) {
     FormTextField(
         modifier = Modifier.onFocusChanged {
             isValidName = if (!it.isFocused && name.text.isNotEmpty())
-                isValidName(name.text)
+                name.text.isValidName()
             else
                 true
         },
         textFieldValue = name,
-        label = "Name",
+        label = stringResource(id = R.string.name),
         requestFocus = requestFocus,
         isError = !isValidName,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
@@ -44,7 +46,7 @@ fun NameTextField(requestFocus: Boolean) {
                 modifier = Modifier.focusProperties { canFocus = false },
                 onClick = { },
             ) {
-                if (isValidName(name.text)) {
+                if (name.text.isValidName()) {
                     Icon(
                         Icons.Default.Check,
                         contentDescription = "valid name icon",
@@ -56,3 +58,5 @@ fun NameTextField(requestFocus: Boolean) {
         paddingValues = PaddingValues(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
     )
 }
+
+fun String.isValidName() = length in 4..50
