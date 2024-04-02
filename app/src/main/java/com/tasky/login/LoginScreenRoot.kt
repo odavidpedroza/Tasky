@@ -21,6 +21,7 @@ fun LoginScreenRoot(
     LaunchedEffect(uiState) {
         if (uiState.navigateToRegisterScreen) {
             navController.navigate(Screen.Register.route)
+            viewModel.navigationToRegisterScreenComplete()
         }
     }
 }

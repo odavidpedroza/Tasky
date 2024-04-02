@@ -21,8 +21,13 @@ class LoginViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun navigationToRegisterScreenComplete() {
+        _uiState.update { it.copy(navigateToRegisterScreen = false) }
+    }
+
     private fun navigateToRegisterScreen() {
         _uiState.update { it.copy(navigateToRegisterScreen = true) }
+
     }
 }
 

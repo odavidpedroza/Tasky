@@ -20,6 +20,10 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun navigateUpComplete() {
+        _uiState.update { it.copy(navigateUp = false)}
+    }
+
     private fun navigateUp() {
         _uiState.update { it.copy(navigateUp = true)}
     }

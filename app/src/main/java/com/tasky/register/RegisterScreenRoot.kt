@@ -18,6 +18,9 @@ fun RegisterScreenRoot(
     RegisterScreen(onEvent = viewModel::onEvent)
 
     LaunchedEffect(uiState) {
-        if (uiState.navigateUp) { navController.navigateUp() }
+        if (uiState.navigateUp) {
+            navController.navigateUp()
+            viewModel.navigateUpComplete()
+        }
     }
 }
