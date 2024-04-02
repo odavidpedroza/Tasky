@@ -1,4 +1,4 @@
-package com.tasky.ui.register
+package com.tasky.register
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -7,12 +7,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.tasky.ui.theme.TaskyTheme
 
 @Composable
-fun RegisterScreen(navController: NavController = rememberNavController()) {
+fun RegisterScreen(
+    onEvent: (RegisterEvent) -> Unit
+) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -21,7 +21,7 @@ fun RegisterScreen(navController: NavController = rememberNavController()) {
             RegisterForm()
             RegisterButton()
             Spacer(Modifier.weight(1f))
-            RegisterFloatingActionButton(navController)
+            RegisterFloatingActionButton(onClick = { onEvent(RegisterEvent.NavigateUp) })
         }
     }
 }
@@ -30,6 +30,6 @@ fun RegisterScreen(navController: NavController = rememberNavController()) {
 @Composable
 fun RegisterScreenPreview() {
     TaskyTheme {
-        RegisterScreen()
+        RegisterScreen { }
     }
 }

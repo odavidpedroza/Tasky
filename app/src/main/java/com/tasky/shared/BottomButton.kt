@@ -1,4 +1,4 @@
-package com.tasky.ui.shared
+package com.tasky.shared
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.tasky.ui.theme.TaskyTheme
 
 @Composable
-fun BottomButtonComposable(text: String) {
+fun BottomButton(text: String) {
     Button(modifier = Modifier
         .fillMaxWidth()
         .padding(16.dp)
@@ -24,11 +24,11 @@ fun BottomButtonComposable(text: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun BottomButtonComposablePreview() {
+fun BottomButtonPreview() {
     TaskyTheme {
         Column {
-            BottomButtonComposable("Short Text")
-            BottomButtonComposable("Super Hyper Ultra Mega Big Text")
+            BottomButton("Short Text")
+            BottomButton("Super Hyper Ultra Mega Big Text")
         }
     }
 }

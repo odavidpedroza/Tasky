@@ -1,4 +1,4 @@
-package com.tasky.ui.shared
+package com.tasky.shared
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.tasky.R
 import com.tasky.ui.theme.LightGray3
 import com.tasky.ui.theme.Red
+import com.tasky.validator.UserDataValidator.isValidPassword
 
 @Composable
 fun PasswordTextField(validatePassword: Boolean) {
@@ -29,29 +30,6 @@ fun PasswordTextField(validatePassword: Boolean) {
     var password by remember { mutableStateOf(TextFieldValue("")) }
     var passwordVisibility by remember { mutableStateOf(false) }
     var isPasswordValid by remember { mutableStateOf(true) }
-
-    /**
-     * The password needs to be at least 9 characters long
-     * The password must contain lowercase and uppercase letters as well as at least one digit
-     */
-    fun isValidPassword(password: String): Boolean {
-        var char: Char
-        var capitalFlag = false
-        var lowerCaseFlag = false
-        var numberFlag = false
-        for (i in password.indices) {
-            char = password[i]
-            if (Character.isDigit(char)) {
-                numberFlag = true
-            } else if (Character.isUpperCase(char)) {
-                capitalFlag = true
-            } else if (Character.isLowerCase(char)) {
-                lowerCaseFlag = true
-            }
-            if (numberFlag && capitalFlag && lowerCaseFlag && password.length > 8) return true
-        }
-        return false
-    }
 
     FormTextField(
         textFieldValue = password,

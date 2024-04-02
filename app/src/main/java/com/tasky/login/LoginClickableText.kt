@@ -1,4 +1,4 @@
-package com.tasky.ui.login
+package com.tasky.login
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,20 +12,16 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.tasky.R
-import com.tasky.navigation.Screen
 import com.tasky.ui.theme.Blue
 import com.tasky.ui.theme.LightGray1
 import com.tasky.ui.theme.LightGray3
 
 @Composable
-fun LoginClickableText(navController: NavController) {
+fun LoginClickableText(onClick: (Int) -> Unit) {
     ClickableText(
         style = TextStyle(textAlign = TextAlign.Center, color = LightGray1),
-        onClick = {
-            navController.navigate(Screen.Register.route)
-        },
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .padding(32.dp),

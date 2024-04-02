@@ -5,8 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tasky.navigation.Screen
-import com.tasky.ui.login.LoginScreen
-import com.tasky.ui.register.RegisterScreen
+import com.tasky.login.LoginScreenRoot
+import com.tasky.register.RegisterScreenRoot
 
 @Composable
 fun TaskApplication() {
@@ -16,10 +16,10 @@ fun TaskApplication() {
         startDestination = Screen.Login.route
     ) {
         composable(route = Screen.Login.route) {
-            LoginScreen(navController = navController)
+            LoginScreenRoot(navController = navController)
         }
         composable(route = Screen.Register.route) {
-            RegisterScreen(navController = navController)
+            RegisterScreenRoot(navController = navController)
         }
     }
 }

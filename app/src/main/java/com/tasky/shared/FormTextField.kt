@@ -1,4 +1,4 @@
-package com.tasky.ui.shared
+package com.tasky.shared
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
