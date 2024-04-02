@@ -18,10 +18,11 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.NavigateToRegisterScreen -> navigateToRegisterScreen()
+            is LoginEvent.NavigationToRegisterScreenDone -> navigationToRegisterScreenDone()
         }
     }
 
-    fun navigationToRegisterScreenComplete() {
+    private fun navigationToRegisterScreenDone() {
         _uiState.update { it.copy(navigateToRegisterScreen = false) }
     }
 

@@ -17,10 +17,11 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     fun onEvent(event: RegisterEvent) {
         when (event) {
             is RegisterEvent.NavigateUp -> navigateUp()
+            is RegisterEvent.NavigateUpDone -> navigateUpDone()
         }
     }
 
-    fun navigateUpComplete() {
+    private fun navigateUpDone() {
         _uiState.update { it.copy(navigateUp = false)}
     }
 

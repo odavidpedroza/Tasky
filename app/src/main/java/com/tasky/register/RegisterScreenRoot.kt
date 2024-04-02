@@ -20,7 +20,7 @@ fun RegisterScreenRoot(
     LaunchedEffect(uiState) {
         if (uiState.navigateUp) {
             navController.navigateUp()
-            viewModel.navigateUpComplete()
+            viewModel.onEvent(RegisterEvent.NavigateUpDone)
         }
     }
 }
