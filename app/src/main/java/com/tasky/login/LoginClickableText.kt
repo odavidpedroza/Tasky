@@ -12,13 +12,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.tasky.R
 import com.tasky.ui.theme.Blue
 import com.tasky.ui.theme.LightGray1
 import com.tasky.ui.theme.LightGray3
 
 @Composable
-fun LoginClickableText(onClick: (Int) -> Unit) {
+fun LoginClickableText(
+    linkTextId: Pair<Int, Int>,
+    onClick: (Int) -> Unit
+) {
     ClickableText(
         style = TextStyle(textAlign = TextAlign.Center, color = LightGray1),
         onClick = onClick,
@@ -27,12 +29,12 @@ fun LoginClickableText(onClick: (Int) -> Unit) {
             .padding(32.dp),
         text = buildAnnotatedString {
             withStyle(style = SpanStyle(color = LightGray3)) {
-                val text = stringResource(id = R.string.sign_up_question)
+                val text = stringResource(id = linkTextId.first)
                 append(text)
             }
             append(" ")
             withStyle(style = SpanStyle(color = Blue)) {
-                val text = stringResource(id = R.string.sign_up)
+                val text = stringResource(id = linkTextId.second)
                 append(text)
             }
         }

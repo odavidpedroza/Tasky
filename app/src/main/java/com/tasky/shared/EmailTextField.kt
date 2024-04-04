@@ -1,6 +1,5 @@
 package com.tasky.shared
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
@@ -21,8 +20,7 @@ import com.tasky.validator.UserDataValidator.isValidEmail
 
 @Composable
 fun EmailTextField(
-    requestFocus: Boolean = false,
-    paddingValues: PaddingValues
+    requestFocus: Boolean = false
 ) {
 
     var email by remember { mutableStateOf(TextFieldValue("")) }
@@ -47,7 +45,6 @@ fun EmailTextField(
                 )
             }
         },
-        paddingValues = paddingValues,
         trailingIcon = {
             if (isValidEmail(email.text)) {
                 Icon(

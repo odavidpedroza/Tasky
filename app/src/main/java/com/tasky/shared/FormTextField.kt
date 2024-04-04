@@ -27,7 +27,7 @@ import com.tasky.ui.theme.Red
 @Composable
 fun FormTextField(
     modifier: Modifier = Modifier,
-    label: String = "",
+    label: String,
     requestFocus: Boolean = false,
     textFieldValue: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
@@ -35,7 +35,6 @@ fun FormTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     supportingText: @Composable () -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
-    paddingValues: PaddingValues = PaddingValues(),
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
 
@@ -46,7 +45,7 @@ fun FormTextField(
         trailingIcon = trailingIcon,
         modifier = modifier
             .fillMaxWidth()
-            .padding(paddingValues)
+            .padding(PaddingValues(horizontal = 16.dp))
             .focusRequester(focusRequester),
         value = textFieldValue,
         shape = RoundedCornerShape(10.dp),

@@ -1,6 +1,5 @@
 package com.tasky.shared
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -18,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.tasky.R
 import com.tasky.ui.theme.LightGray3
 import com.tasky.ui.theme.Red
@@ -41,7 +39,7 @@ fun PasswordTextField(validatePassword: Boolean) {
         isError = if (validatePassword && password.text.length > 8) !isValidPassword(password.text) else false,
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         supportingText = {
-            if (!isPasswordValid && validatePassword) {
+            if (validatePassword && !isPasswordValid && password.text.isNotEmpty()) {
                 Text(
                     text = stringResource(id = R.string.password_error),
                     color = Red
@@ -57,7 +55,7 @@ fun PasswordTextField(validatePassword: Boolean) {
                     containerColor = Color.Transparent,
                     contentColor = LightGray3,
                     disabledContainerColor = Color.Transparent,
-                    disabledContentColor = Color(0xFFBEBEBE),
+                    disabledContentColor = LightGray3,
                 )
             ) {
                 if (passwordVisibility) {
@@ -66,7 +64,6 @@ fun PasswordTextField(validatePassword: Boolean) {
                     Icon(Icons.Filled.VisibilityOff, "password visibility disabled")
                 }
             }
-        },
-        paddingValues = PaddingValues(top = 4.dp, start = 16.dp, end = 16.dp)
+        }
     )
 }

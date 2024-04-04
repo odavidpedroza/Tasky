@@ -1,7 +1,6 @@
 package com.tasky.register
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -18,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.tasky.R
 import com.tasky.shared.FormTextField
 import com.tasky.ui.theme.Green
@@ -63,8 +61,7 @@ fun NameTextField(requestFocus: Boolean) {
                     tint = Green
                 )
             }
-        },
-        paddingValues = PaddingValues(top = 16.dp, start = 16.dp, end = 16.dp)
+        }
     )
 }
 
