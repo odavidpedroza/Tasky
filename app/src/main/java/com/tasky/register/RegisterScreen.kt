@@ -7,21 +7,31 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.tasky.shared.BottomButton
+import com.tasky.shared.RoundedHeader
 import com.tasky.ui.theme.TaskyTheme
 
 @Composable
 fun RegisterScreen(
+    state: RegisterState,
     onEvent: (RegisterEvent) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
-            RegisterHeader()
+            RoundedHeader(
+                textId = state.headerTextId
+            )
             RegisterForm()
-            RegisterButton()
+            BottomButton(
+                textId = state.buttonTextId,
+                onClick = { onEvent(RegisterEvent.NavigateToCalendar) }
+            )
             Spacer(Modifier.weight(1f))
-            RegisterFloatingActionButton(onClick = { onEvent(RegisterEvent.NavigateUp) })
+            RegisterFloatingActionButton(
+                onClick = { onEvent(RegisterEvent.NavigateUp) }
+            )
         }
     }
 }
@@ -30,6 +40,6 @@ fun RegisterScreen(
 @Composable
 fun RegisterScreenPreview() {
     TaskyTheme {
-        RegisterScreen { }
+        RegisterScreen(RegisterState()) { }
     }
 }
