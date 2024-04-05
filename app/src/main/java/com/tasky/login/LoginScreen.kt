@@ -26,11 +26,12 @@ fun LoginScreen(
             LoginForm()
             BottomButton(
                 textId = state.buttonTextId,
-                onClick = { onEvent(LoginEvent.NavigateToCalendar) }
+                onClick = { TODO() }
             )
             Spacer(Modifier.weight(1f))
             LoginClickableText(
-                linkTextId = state.linkTextId,
+                registerInfoText = state.registerInfoText,
+                registerActionText = state.registerActionText,
                 onClick = { onEvent(LoginEvent.NavigateToRegisterScreen) }
             )
         }

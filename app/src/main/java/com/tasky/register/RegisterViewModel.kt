@@ -23,7 +23,6 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
-            RegisterEvent.NavigateToCalendar -> navigateToCalendar()
             RegisterEvent.NavigateUp -> navigateUp()
         }
     }
@@ -31,12 +30,6 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private fun navigateUp() {
         viewModelScope.launch {
             _navigationChannel.send(NavigationEvent.Register.NavigateUp)
-        }
-    }
-
-    private fun navigateToCalendar() {
-        viewModelScope.launch {
-            _navigationChannel.send(NavigationEvent.Register.NavigateToCalendar)
         }
     }
 }

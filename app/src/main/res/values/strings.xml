@@ -7,8 +7,8 @@
 
     <string name="create_your_account">Create your account</string>
     <string name="get_started">GET STARTED</string>
-    <string name="sign_up">SIGN UP</string>
-    <string name="sign_up_question">DON\'T HAVE AN ACCOUNT?</string>
+    <string name="register_action_text">SIGN UP</string>
+    <string name="register_info_text">DON\'T HAVE AN ACCOUNT?</string>
 
     <string name="name">Name</string>
     <string name="email">Email address</string>
