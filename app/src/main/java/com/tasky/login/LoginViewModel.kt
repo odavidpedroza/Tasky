@@ -23,7 +23,6 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: LoginEvent) {
         when (event) {
-            LoginEvent.NavigateToCalendar -> navigateToCalendar()
             LoginEvent.NavigateToRegisterScreen -> navigateToRegisterScreen()
         }
     }
@@ -31,12 +30,6 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     private fun navigateToRegisterScreen() {
         viewModelScope.launch {
             _navigationChannel.send(NavigationEvent.Login.NavigateToRegister)
-        }
-    }
-
-    private fun navigateToCalendar() {
-        viewModelScope.launch {
-            _navigationChannel.send(NavigationEvent.Login.NavigateToCalendar)
         }
     }
 }

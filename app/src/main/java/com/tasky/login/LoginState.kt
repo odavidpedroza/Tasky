@@ -6,5 +6,6 @@ import com.tasky.R
 data class LoginState(
     @StringRes val headerTextId: Int = R.string.welcome_back,
     @StringRes val buttonTextId: Int = R.string.login,
-    val linkTextId: Pair<Int, Int> = R.string.sign_up_question to R.string.sign_up
+    @StringRes val registerInfoText: Int = R.string.register_info_text,
+    @StringRes val registerActionText: Int = R.string.register_action_text,
 )

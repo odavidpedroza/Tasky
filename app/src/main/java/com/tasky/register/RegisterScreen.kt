@@ -26,7 +26,7 @@ fun RegisterScreen(
             RegisterForm()
             BottomButton(
                 textId = state.buttonTextId,
-                onClick = { onEvent(RegisterEvent.NavigateToCalendar) }
+                onClick = { TODO() }
             )
             Spacer(Modifier.weight(1f))
             RegisterFloatingActionButton(
