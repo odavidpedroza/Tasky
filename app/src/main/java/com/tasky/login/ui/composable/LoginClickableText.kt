@@ -1,4 +1,4 @@
-package com.tasky.login
+package com.tasky.login.ui.composable
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
