@@ -25,7 +25,7 @@ import com.tasky.validator.UserDataValidator.isValidPassword
 
 @Composable
 fun PasswordTextField(
-    password: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue()),
+    password: MutableState<TextFieldValue>,
     validatePassword: Boolean
 ) {
 
