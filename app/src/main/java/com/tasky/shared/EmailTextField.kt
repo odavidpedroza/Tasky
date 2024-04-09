@@ -5,7 +5,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,7 +20,8 @@ import com.tasky.validator.UserDataValidator.isValidEmail
 
 @Composable
 fun EmailTextField(
-    email: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue()),
+    email: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     requestFocus: Boolean = false
 ) {
 
@@ -29,15 +29,15 @@ fun EmailTextField(
 
     FormTextField(
         modifier = Modifier.onFocusChanged {
-            isValidEmail = if (!it.isFocused && email.value.text.isNotEmpty())
-                isValidEmail(email.value.text)
+            isValidEmail = if (!it.isFocused && email.text.isNotEmpty())
+                isValidEmail(email.text)
             else true
         },
-        textFieldValue = email.value,
+        textFieldValue = email,
         label = stringResource(id = R.string.email),
         requestFocus = requestFocus,
         isError = !isValidEmail,
-        onValueChange = { email.value = it },
+        onValueChange = onValueChange,
         supportingText = {
             if (!isValidEmail) {
                 Text(
@@ -47,7 +47,7 @@ fun EmailTextField(
             }
         },
         trailingIcon = {
-            if (isValidEmail(email.value.text)) {
+            if (isValidEmail(email.text)) {
                 Icon(
                     Icons.Default.Check,
                     contentDescription = "valid email icon",

@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,7 +23,8 @@ import com.tasky.validator.UserDataValidator.isValidName
 
 @Composable
 fun NameTextField(
-    name: MutableState<TextFieldValue>,
+    name: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     requestFocus: Boolean
 ) {
 
@@ -32,19 +32,17 @@ fun NameTextField(
 
     FormTextField(
         modifier = Modifier.onFocusChanged {
-            isValidName = if (!it.isFocused && name.value.text.isNotEmpty())
-                isValidName(name.value.text)
+            isValidName = if (!it.isFocused && name.text.isNotEmpty())
+                isValidName(name.text)
             else
                 true
         },
-        textFieldValue = name.value,
+        textFieldValue = name,
         label = stringResource(id = R.string.name),
         requestFocus = requestFocus,
         isError = !isValidName,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
-        onValueChange = { value: TextFieldValue ->
-            name.value = value
-        },
+        onValueChange = onValueChange,
         supportingText = {
             if (!isValidName) {
                 Text(
@@ -54,7 +52,7 @@ fun NameTextField(
             }
         },
         trailingIcon = {
-            if (isValidName(name.value.text)) {
+            if (isValidName(name.text)) {
                 Icon(
                     Icons.Default.Check,
                     contentDescription = "valid name icon",

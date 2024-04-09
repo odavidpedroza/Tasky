@@ -25,9 +25,8 @@ fun RegisterScreen(
                 textId = R.string.create_your_account
             )
             RegisterForm(
-                name = state.name,
-                email = state.email,
-                password = state.password
+                state = state,
+                onEvent = onEvent
             )
             BottomButton(
                 textId = R.string.get_started,

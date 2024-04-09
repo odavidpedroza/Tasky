@@ -1,5 +1,6 @@
 package com.tasky.register
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasky.navigation.NavigationEvent
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +25,28 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
+            is RegisterEvent.UpdateName -> updateNameValue(event.name)
+            is RegisterEvent.UpdateEmail -> updateEmailValue(event.email)
+            is RegisterEvent.UpdatePassword -> updatePasswordValue(event.password)
             RegisterEvent.NavigateUp -> navigateUp()
+        }
+    }
+
+    private fun updateNameValue(name: TextFieldValue) {
+        viewModelScope.launch {
+            _state.update { _state.value.copy(name = name) }
+        }
+    }
+
+    private fun updateEmailValue(email: TextFieldValue) {
+        viewModelScope.launch {
+            _state.update { _state.value.copy(email = email) }
+        }
+    }
+
+    private fun updatePasswordValue(password: TextFieldValue) {
+        viewModelScope.launch {
+            _state.update { _state.value.copy(password = password) }
         }
     }
 

@@ -24,14 +24,17 @@ fun LoginScreen(
     ) {
         Column {
             RoundedHeader(textId = R.string.welcome_back)
-            LoginForm(state.email, state.password)
+            LoginForm(
+                state = state,
+                onEvent = onEvent
+            )
             BottomButton(
                 textId = R.string.login,
                 onClick = {
                     onEvent(
                         LoginEvent.Login(
-                            state.email.value.text,
-                            state.password.value.text
+                            state.email.text,
+                            state.password.text
                         )
                     )
                 }
