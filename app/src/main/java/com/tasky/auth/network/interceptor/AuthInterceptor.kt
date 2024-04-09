@@ -6,7 +6,7 @@ import com.tasky.session.SessionManager
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class RequestInterceptor(context: Context) : Interceptor {
+class AuthInterceptor(context: Context) : Interceptor {
     private val sessionManager = SessionManager(context)
 
     override fun intercept(chain: Interceptor.Chain): Response {

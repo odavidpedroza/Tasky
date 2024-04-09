@@ -1,7 +1,7 @@
 package com.tasky.network
 
 import android.content.Context
-import com.tasky.auth.network.interceptor.RequestInterceptor
+import com.tasky.auth.network.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +24,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideInterceptor(@ApplicationContext context: Context): RequestInterceptor =
-        RequestInterceptor(context)
+    fun provideInterceptor(@ApplicationContext context: Context): AuthInterceptor =
+        AuthInterceptor(context)
 
     @Singleton
     @Provides
@@ -34,7 +34,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(interceptor: RequestInterceptor): OkHttpClient =
+    fun provideOkHttpClient(interceptor: AuthInterceptor): OkHttpClient =
         OkHttpClient()
             .newBuilder()
             .addInterceptor(interceptor)

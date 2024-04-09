@@ -1,9 +1,12 @@
 package com.tasky.register
 
-import androidx.annotation.StringRes
-import com.tasky.R
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
 
 data class RegisterState(
-    @StringRes val headerTextId: Int = R.string.create_your_account,
-    @StringRes val buttonTextId: Int = R.string.get_started
+    val name: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
+    val email: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
+    val password: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
+    val isError: Boolean = false
 )

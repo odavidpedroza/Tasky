@@ -7,6 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.tasky.R
 import com.tasky.shared.BottomButton
 import com.tasky.shared.RoundedHeader
 import com.tasky.ui.theme.TaskyTheme
@@ -21,11 +22,15 @@ fun RegisterScreen(
     ) {
         Column {
             RoundedHeader(
-                textId = state.headerTextId
+                textId = R.string.create_your_account
             )
-            RegisterForm()
+            RegisterForm(
+                name = state.name,
+                email = state.email,
+                password = state.password
+            )
             BottomButton(
-                textId = state.buttonTextId,
+                textId = R.string.get_started,
                 onClick = { TODO() }
             )
             Spacer(Modifier.weight(1f))

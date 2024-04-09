@@ -7,6 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.tasky.R
 import com.tasky.login.ui.LoginEvent
 import com.tasky.login.ui.LoginState
 import com.tasky.shared.BottomButton
@@ -22,12 +23,10 @@ fun LoginScreen(
         modifier = Modifier.fillMaxSize(),
     ) {
         Column {
-            RoundedHeader(
-                textId = state.headerTextId
-            )
+            RoundedHeader(textId = R.string.welcome_back)
             LoginForm(state.email, state.password)
             BottomButton(
-                textId = state.buttonTextId,
+                textId = R.string.login,
                 onClick = {
                     onEvent(
                         LoginEvent.Login(
@@ -39,8 +38,6 @@ fun LoginScreen(
             )
             Spacer(Modifier.weight(1f))
             LoginClickableText(
-                registerInfoText = state.registerInfoText,
-                registerActionText = state.registerActionText,
                 onClick = { onEvent(LoginEvent.NavigateToRegisterScreen) }
             )
         }

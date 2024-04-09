@@ -6,19 +6,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tasky.shared.EmailTextField
 import com.tasky.shared.PasswordTextField
-import com.tasky.ui.theme.TaskyTheme
 
 @Composable
 fun LoginForm(
-    email: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue()),
-    password: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue()),
+    email: MutableState<TextFieldValue>,
+    password: MutableState<TextFieldValue>,
 ) {
     Surface {
         Column {
@@ -34,13 +31,5 @@ fun LoginForm(
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginFormPreview() {
-    TaskyTheme {
-        LoginForm()
     }
 }

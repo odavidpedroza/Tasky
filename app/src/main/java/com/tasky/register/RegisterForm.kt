@@ -5,32 +5,28 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.tasky.shared.EmailTextField
 import com.tasky.shared.PasswordTextField
-import com.tasky.ui.theme.TaskyTheme
 
 @Composable
-fun RegisterForm() {
+fun RegisterForm(
+    name: MutableState<TextFieldValue>,
+    email: MutableState<TextFieldValue>,
+    password: MutableState<TextFieldValue>
+) {
     Surface {
         Column {
             Spacer(modifier = Modifier.padding(8.dp))
-            NameTextField(requestFocus = true)
+            NameTextField(name = name, requestFocus = true)
             Spacer(modifier = Modifier.padding(4.dp))
-            EmailTextField()
+            EmailTextField(email = email)
             Spacer(modifier = Modifier.padding(4.dp))
-            PasswordTextField(validatePassword = true)
+            PasswordTextField(password = password, validatePassword = true)
             Spacer(modifier = Modifier.padding(8.dp))
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterFormPreview() {
-    TaskyTheme {
-        RegisterForm()
     }
 }

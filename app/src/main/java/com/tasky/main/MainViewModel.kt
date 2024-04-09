@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasky.auth.domain.usecase.IAuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,15 +16,17 @@ class MainViewModel @Inject constructor(
     private val useCase: IAuthUseCase
 ) : ViewModel() {
 
-    private val _destinationScreen = MutableStateFlow("")
-    val destinationScreen = _destinationScreen.asStateFlow()
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
+
+    private val _destinationScreen = Channel<String>()
+    val destinationScreen = _destinationScreen.receiveAsFlow()
 
     fun authenticate() {
         viewModelScope.launch {
-            useCase.authenticate().collect { result ->
-                val destination = result.destinationScreen
-                _destinationScreen.tryEmit(destination.route)
-            }
+            val result = useCase.authenticate()
+            _destinationScreen.send(result.destinationScreen.route)
+            _isLoading.emit(false)
         }
     }
 }
