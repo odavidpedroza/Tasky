@@ -2,7 +2,7 @@ package com.tasky.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tasky.auth.domain.usecase.IAuthUseCase
+import com.tasky.auth.network.repository.IAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val useCase: IAuthUseCase
+    private val repository: IAuthRepository
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
 
     fun authenticate() {
         viewModelScope.launch {
-            val result = useCase.authenticate()
+            val result = repository.authenticate()
             _destinationScreen.send(result.destinationScreen.route)
             _isLoading.emit(false)
         }
