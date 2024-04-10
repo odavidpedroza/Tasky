@@ -8,7 +8,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,24 +24,22 @@ import com.tasky.validator.UserDataValidator.isValidPassword
 
 @Composable
 fun PasswordTextField(
-    password: MutableState<TextFieldValue>,
+    password: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     validatePassword: Boolean
 ) {
 
     var passwordVisibility by remember { mutableStateOf(false) }
-    var isPasswordValid by remember { mutableStateOf(true) }
+    val isPasswordValid by remember { mutableStateOf(true) }
 
     FormTextField(
-        textFieldValue = password.value,
+        textFieldValue = password,
         label = stringResource(id = R.string.password),
-        onValueChange = { value: TextFieldValue ->
-            password.value = value
-            isPasswordValid = isValidPassword(password.value.text)
-        },
-        isError = if (validatePassword && password.value.text.length > 8) !isValidPassword(password.value.text) else false,
+        onValueChange = onValueChange,
+        isError = if (validatePassword && password.text.length > 8) !isValidPassword(password.text) else false,
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         supportingText = {
-            if (validatePassword && !isPasswordValid && password.value.text.isNotEmpty()) {
+            if (validatePassword && !isPasswordValid && password.text.isNotEmpty()) {
                 Text(
                     text = stringResource(id = R.string.password_error),
                     color = Red

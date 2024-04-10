@@ -1,7 +1,5 @@
 package com.tasky.login.di
 
-import com.tasky.login.domain.ILoginUseCase
-import com.tasky.login.domain.LoginUseCase
 import com.tasky.login.network.repository.ILoginRepository
 import com.tasky.login.network.repository.LoginRepository
 import com.tasky.login.network.service.ILoginService
@@ -19,17 +17,11 @@ object LoginModule {
 
     @Singleton
     @Provides
-    fun providesLoginUseCase(
-        repository: ILoginRepository,
+    fun providesLoginRepository(
+        service: ILoginService,
         sessionManager: ISessionManager
-    ): ILoginUseCase {
-        return LoginUseCase(repository, sessionManager)
-    }
-
-    @Singleton
-    @Provides
-    fun providesLoginRepository(service: ILoginService): ILoginRepository {
-        return LoginRepository(service)
+    ): ILoginRepository {
+        return LoginRepository(service, sessionManager)
     }
 
     @Singleton
