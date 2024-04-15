@@ -6,12 +6,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
@@ -25,26 +19,20 @@ import com.tasky.validator.UserDataValidator.isValidName
 fun NameTextField(
     name: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
+    valid: Boolean,
     requestFocus: Boolean
 ) {
 
-    var isValidName by remember { mutableStateOf(true) }
-
     FormTextField(
-        modifier = Modifier.onFocusChanged {
-            isValidName = if (!it.isFocused && name.text.isNotEmpty())
-                isValidName(name.text)
-            else
-                true
-        },
+
         textFieldValue = name,
         label = stringResource(id = R.string.name),
         requestFocus = requestFocus,
-        isError = !isValidName,
+        isError = !valid,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
         onValueChange = onValueChange,
         supportingText = {
-            if (!isValidName) {
+            if (!valid) {
                 Text(
                     text = stringResource(id = R.string.name_error),
                     color = Red

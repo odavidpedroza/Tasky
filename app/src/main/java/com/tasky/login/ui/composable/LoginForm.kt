@@ -22,14 +22,18 @@ fun LoginForm(
             Spacer(modifier = Modifier.padding(8.dp))
             EmailTextField(
                 email = state.email,
+                valid = state.isEmailValid,
                 onValueChange = { onEvent(LoginEvent.UpdateEmail(it)) },
                 requestFocus = true
             )
             Spacer(modifier = Modifier.padding(4.dp))
             PasswordTextField(
                 password = state.password,
+                visible = state.isPasswordVisible,
+                valid = state.isPasswordValid,
+                onIconClick = { onEvent(LoginEvent.UpdatePasswordVisibility) },
                 onValueChange = { onEvent(LoginEvent.UpdatePassword(it)) },
-                validatePassword = false
+                shouldValidate = false
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }

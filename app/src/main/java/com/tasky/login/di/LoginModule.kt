@@ -1,7 +1,7 @@
 package com.tasky.login.di
 
-import com.tasky.login.network.repository.ILoginRepository
-import com.tasky.login.network.repository.LoginRepository
+import com.tasky.login.domain.repository.ILoginRepository
+import com.tasky.login.domain.repository.LoginRepository
 import com.tasky.login.network.service.ILoginService
 import com.tasky.session.ISessionManager
 import dagger.Module

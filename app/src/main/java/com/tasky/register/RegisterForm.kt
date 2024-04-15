@@ -20,19 +20,24 @@ fun RegisterForm(
             Spacer(modifier = Modifier.padding(8.dp))
             NameTextField(
                 name = state.name,
+                valid = state.isNameValid,
                 onValueChange = { onEvent(RegisterEvent.UpdateName(it)) },
                 requestFocus = true
             )
             Spacer(modifier = Modifier.padding(4.dp))
             EmailTextField(
                 email = state.email,
+                valid = state.isEmailValid,
                 onValueChange = { onEvent(RegisterEvent.UpdateEmail(it)) }
             )
             Spacer(modifier = Modifier.padding(4.dp))
             PasswordTextField(
                 password = state.password,
+                visible = state.isPasswordVisible,
+                valid = state.isPasswordValid,
                 onValueChange = { onEvent(RegisterEvent.UpdatePassword(it)) },
-                validatePassword = true
+                onIconClick = { onEvent(RegisterEvent.UpdatePasswordVisibility) },
+                shouldValidate = true
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }
