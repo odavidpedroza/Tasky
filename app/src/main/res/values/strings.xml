@@ -18,4 +18,8 @@
     <string name="name_error">Full name must be between 4 and 50 characters</string>
     <string name="password_error">At least nine chars and one digit plus lowercase and uppercase letters</string>
 
+    <string name="generic_error">An unexpected error has occurred.</string>
+    <string name="fields_must_not_be_empty">Email and password must not be empty.</string>
+    <string name="no_connection_error">No connection available, please try again later.</string>
+    <string name="invalid_email_or_password_error">Enter a valid email address.</string>
 </resources>

@@ -3,6 +3,7 @@ package com.tasky.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasky.auth.network.repository.IAuthRepository
+import com.tasky.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +25,13 @@ class MainViewModel @Inject constructor(
 
     fun authenticate() {
         viewModelScope.launch {
-            val result = repository.authenticate()
-            _destinationScreen.send(result.destinationScreen.route)
+            val isAuthenticated = repository.authenticate()
+            val destination = if (isAuthenticated) {
+                Screen.Agenda
+            } else {
+                Screen.Login
+            }
+            _destinationScreen.send(destination.route)
             _isLoading.emit(false)
         }
     }
