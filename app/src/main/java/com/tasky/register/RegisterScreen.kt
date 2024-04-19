@@ -30,6 +30,7 @@ fun RegisterScreen(
             )
             BottomButton(
                 textId = R.string.get_started,
+                isEnabled = state.isNameValid && state.isEmailValid && state.isPasswordValid,
                 onClick = { TODO() }
             )
             Spacer(Modifier.weight(1f))

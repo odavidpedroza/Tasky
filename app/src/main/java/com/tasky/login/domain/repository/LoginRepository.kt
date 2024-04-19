@@ -4,6 +4,7 @@ import com.tasky.login.domain.repository.ILoginRepository.LoginError
 import com.tasky.login.network.model.LoginRequest
 import com.tasky.login.network.service.ILoginService
 import com.tasky.session.ISessionManager
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
@@ -23,7 +24,7 @@ class LoginRepository @Inject constructor(
                 else -> LoginError.UNKNOWN
             }
             return Result.Error(error)
-        } catch (error: Throwable) {
+        } catch (error: UnknownHostException) {
             return Result.Error(LoginError.NO_CONNECTION)
         }
     }
