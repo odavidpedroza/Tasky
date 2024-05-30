@@ -11,8 +11,6 @@ import com.tasky.login.domain.repository.Result.Success
 import com.tasky.login.ui.LoginEvent
 import com.tasky.login.ui.LoginState
 import com.tasky.navigation.NavigationEvent
-import com.tasky.validator.UserDataValidator.isValidEmail
-import com.tasky.validator.UserDataValidator.isValidPassword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -62,10 +60,7 @@ class LoginViewModel @Inject constructor(
         hideErrorMessage()
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(
-                    email = email,
-                    isEmailValid = isValidEmail(email.text)
-                )
+                it.copy(email = email)
             }
         }
     }
@@ -74,10 +69,7 @@ class LoginViewModel @Inject constructor(
         hideErrorMessage()
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(
-                    password = password,
-                    isPasswordValid = isValidPassword(password.text)
-                )
+                it.copy(password = password)
             }
         }
     }
@@ -86,19 +78,25 @@ class LoginViewModel @Inject constructor(
         hideErrorMessage()
         viewModelScope.launch {
             val updatedValue = !_state.value.isPasswordVisible
-            _state.update { _state.value.copy(isPasswordVisible = updatedValue) }
+            _state.update {
+                it.copy(isPasswordVisible = updatedValue)
+            }
         }
     }
 
     private fun showLoading() {
         viewModelScope.launch {
-            _state.update { _state.value.copy(isLoading = true) }
+            _state.update {
+                it.copy(isLoading = true)
+            }
         }
     }
 
     private fun hideLoading() {
         viewModelScope.launch {
-            _state.update { _state.value.copy(isLoading = false) }
+            _state.update {
+                it.copy(isLoading = false)
+            }
         }
     }
 
@@ -127,7 +125,7 @@ class LoginViewModel @Inject constructor(
         }
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(errorMessage = message)
+                it.copy(errorMessage = message)
             }
         }
     }
@@ -135,7 +133,7 @@ class LoginViewModel @Inject constructor(
     private fun hideErrorMessage() {
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(errorMessage = 0)
+                it.copy(errorMessage = 0)
             }
         }
     }
