@@ -13,7 +13,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -31,6 +33,7 @@ fun FormTextField(
     requestFocus: Boolean = false,
     textFieldValue: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
+    onFocusChange: (FocusState) -> Unit = {},
     isError: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     supportingText: @Composable () -> Unit = {},
@@ -46,6 +49,7 @@ fun FormTextField(
         modifier = modifier
             .fillMaxWidth()
             .padding(PaddingValues(horizontal = 16.dp))
+            .onFocusChanged(onFocusChange)
             .focusRequester(focusRequester),
         value = textFieldValue,
         shape = RoundedCornerShape(10.dp),

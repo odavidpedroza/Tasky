@@ -15,8 +15,8 @@ class LoginRepository @Inject constructor(
         val request = LoginRequest(email, password)
         try {
             val response = service.login(request)
-            response.body()?.let {
-                sessionManager.saveAuthToken(it.token)
+            response.body()?.token?.let {
+                sessionManager.saveAuthToken(it)
                 return Result.Success(data = Unit)
             }
             val error = when (response.code()) {

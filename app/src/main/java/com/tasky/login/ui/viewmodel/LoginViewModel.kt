@@ -11,6 +11,7 @@ import com.tasky.login.domain.repository.Result.Success
 import com.tasky.login.ui.LoginEvent
 import com.tasky.login.ui.LoginState
 import com.tasky.navigation.NavigationEvent
+import com.tasky.validator.UserDataValidator.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,6 +37,7 @@ class LoginViewModel @Inject constructor(
         when (event) {
             is LoginEvent.Login -> login(event.email, event.password)
             is LoginEvent.UpdateEmail -> updateEmailValue(event.email)
+            is LoginEvent.UpdateFocus -> updateEmailFocus(event.focused)
             is LoginEvent.UpdatePassword -> updatePasswordValue(event.password)
             is LoginEvent.ShowErrorMessage -> showErrorMessage(event.error)
             LoginEvent.UpdatePasswordVisibility -> updatePasswordVisibility()
@@ -60,7 +62,19 @@ class LoginViewModel @Inject constructor(
         hideErrorMessage()
         viewModelScope.launch {
             _state.update {
-                it.copy(email = email)
+                it.copy(
+                    email = email,
+                    isEmailValid = isValidEmail(email.text)
+                )
+            }
+        }
+    }
+
+    private fun updateEmailFocus(isFocused: Boolean) {
+        hideErrorMessage()
+        viewModelScope.launch {
+            _state.update {
+                it.copy(isEmailFocused = isFocused)
             }
         }
     }

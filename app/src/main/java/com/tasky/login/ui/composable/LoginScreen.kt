@@ -38,10 +38,10 @@ fun LoginScreen(
             )
             BottomButton(
                 textId = R.string.login,
-                isEnabled = state.isEmailValid && state.isPasswordValid,
+                isEnabled = state.isEmailValid && state.password.text.isNotEmpty(),
                 isLoading = state.isLoading,
                 onClick = {
-                    if (state.isLoading.not()) {
+                    if (!state.isLoading) {
                         onEvent(
                             LoginEvent.Login(
                                 state.email.text,

@@ -9,6 +9,7 @@ data class RegisterState(
     val password: TextFieldValue = TextFieldValue(""),
     val isNameValid: Boolean = false,
     val isEmailValid: Boolean = false,
+    val isEmailFocused: Boolean = false,
     val isPasswordValid: Boolean = false,
     val isPasswordVisible: Boolean = false,
     @StringRes val errorMessage: Int = 0
