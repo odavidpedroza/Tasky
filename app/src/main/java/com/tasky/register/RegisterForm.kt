@@ -21,7 +21,9 @@ fun RegisterForm(
             NameTextField(
                 name = state.name,
                 valid = state.isNameValid,
-                onValueChange = { onEvent(RegisterEvent.UpdateName(it)) },
+                focused = state.isNameFocused,
+                onValueChange = { onEvent(RegisterEvent.UpdateNameText(it)) },
+                onFocusChange = { onEvent(RegisterEvent.UpdateNameFocus(it.isFocused)) },
                 requestFocus = true
             )
             Spacer(modifier = Modifier.padding(4.dp))
@@ -29,14 +31,15 @@ fun RegisterForm(
                 email = state.email,
                 valid = state.isEmailValid,
                 focused = state.isEmailFocused,
-                onValueChange = { onEvent(RegisterEvent.UpdateEmail(it)) }
+                onValueChange = { onEvent(RegisterEvent.UpdateEmailText(it)) },
+                onFocusChange = { onEvent(RegisterEvent.UpdateEmailFocus(it.isFocused)) }
             )
             Spacer(modifier = Modifier.padding(4.dp))
             PasswordTextField(
                 password = state.password,
                 visible = state.isPasswordVisible,
                 valid = state.isPasswordValid,
-                onValueChange = { onEvent(RegisterEvent.UpdatePassword(it)) },
+                onValueChange = { onEvent(RegisterEvent.UpdatePasswordText(it)) },
                 onIconClick = { onEvent(RegisterEvent.UpdatePasswordVisibility) },
                 shouldValidate = true
             )

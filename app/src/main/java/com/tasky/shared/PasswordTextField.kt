@@ -14,9 +14,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import com.tasky.R
+import com.tasky.ui.theme.Black
 import com.tasky.ui.theme.LightGray3
 import com.tasky.ui.theme.Red
-import com.tasky.validator.UserDataValidator.isValidPassword
 
 @Composable
 fun PasswordTextField(
@@ -28,17 +28,19 @@ fun PasswordTextField(
     onIconClick: () -> Unit
 ) {
 
+    val displayError = shouldValidate && !valid && password.text.isNotEmpty()
+
     FormTextField(
         textFieldValue = password,
         label = stringResource(id = R.string.password),
         onValueChange = onValueChange,
-        isError = if (shouldValidate && password.text.length > 8) !isValidPassword(password.text) else false,
+        isError = if (password.text.length > 7) displayError else false,
         visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
         supportingText = {
-            if (shouldValidate && !valid && password.text.isNotEmpty()) {
+            if (displayError) {
                 Text(
                     text = stringResource(id = R.string.password_error),
-                    color = Red
+                    color = if (password.text.length < 8) Black else Red
                 )
             }
         },

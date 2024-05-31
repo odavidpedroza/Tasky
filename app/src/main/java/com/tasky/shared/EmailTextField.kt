@@ -22,15 +22,17 @@ fun EmailTextField(
     requestFocus: Boolean = false
 ) {
 
+    val displayError = !valid && !focused && email.text.isNotEmpty()
+
     FormTextField(
         textFieldValue = email,
         label = stringResource(id = R.string.email),
         requestFocus = requestFocus,
-        isError = !valid && !focused,
+        isError = displayError,
         onValueChange = onValueChange,
         onFocusChange = onFocusChange,
         supportingText = {
-            if (!valid && !focused) {
+            if (displayError) {
                 Text(
                     text = stringResource(id = R.string.email_error),
                     color = Red

@@ -6,6 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.tasky.R
 import com.tasky.login.domain.repository.ILoginRepository
 import com.tasky.navigation.NavigationEvent
+import com.tasky.validator.UserDataValidator.isValidEmail
+import com.tasky.validator.UserDataValidator.isValidName
+import com.tasky.validator.UserDataValidator.isValidPassword
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,9 +31,11 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     fun onEvent(event: RegisterEvent) {
         when (event) {
             is RegisterEvent.HideErrorMessage -> hideErrorMessage()
-            is RegisterEvent.UpdateName -> updateNameValue(event.name)
-            is RegisterEvent.UpdateEmail -> updateEmailValue(event.email)
-            is RegisterEvent.UpdatePassword -> updatePasswordValue(event.password)
+            is RegisterEvent.UpdateNameText -> updateNameValue(event.name)
+            is RegisterEvent.UpdateNameFocus -> updateNameFocus(event.focused)
+            is RegisterEvent.UpdateEmailText -> updateEmailValue(event.email)
+            is RegisterEvent.UpdateEmailFocus -> updateEmailFocus(event.focused)
+            is RegisterEvent.UpdatePasswordText -> updatePasswordValue(event.password)
             is RegisterEvent.UpdatePasswordVisibility -> updatePasswordVisibility()
             is RegisterEvent.ShowErrorMessage -> showErrorMessage(event.error)
             RegisterEvent.NavigateUp -> navigateUp()
@@ -39,27 +44,67 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     private fun updateNameValue(name: TextFieldValue) {
         viewModelScope.launch {
-            _state.update { _state.value.copy(name = name) }
+            _state.update {
+                it.copy(
+                    name = name,
+                    isNameValid = isValidName(name.text)
+                )
+            }
+        }
+    }
+
+    private fun updateNameFocus(focused: Boolean) {
+        hideErrorMessage()
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isNameFocused = focused
+                )
+            }
         }
     }
 
     private fun updateEmailValue(email: TextFieldValue) {
         viewModelScope.launch {
-            _state.update { _state.value.copy(email = email) }
+            _state.update {
+                it.copy(
+                    email = email,
+                    isEmailValid = isValidEmail(email.text)
+                )
+            }
+        }
+    }
+
+    private fun updateEmailFocus(focused: Boolean) {
+        hideErrorMessage()
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isEmailFocused = focused
+                )
+            }
         }
     }
 
     private fun updatePasswordValue(password: TextFieldValue) {
         viewModelScope.launch {
-            _state.update { _state.value.copy(password = password) }
+            _state.update {
+                it.copy(
+                    password = password,
+                    isPasswordValid = isValidPassword(password.text)
+                )
+            }
         }
     }
 
     private fun updatePasswordVisibility() {
         hideErrorMessage()
         viewModelScope.launch {
-            val updatedValue = !_state.value.isPasswordVisible
-            _state.update { _state.value.copy(isPasswordVisible = updatedValue) }
+            _state.update {
+                it.copy(
+                    isPasswordVisible = !it.isPasswordVisible
+                )
+            }
         }
     }
 
@@ -79,7 +124,9 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private fun hideErrorMessage() {
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(errorMessage = 0)
+                it.copy(
+                    errorMessage = 0
+                )
             }
         }
     }
