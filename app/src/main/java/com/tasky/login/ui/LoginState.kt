@@ -7,7 +7,9 @@ data class LoginState(
     val email: TextFieldValue = TextFieldValue(""),
     val password: TextFieldValue = TextFieldValue(""),
     val isEmailValid: Boolean = false,
+    val isEmailFocused: Boolean = true,
     val isPasswordValid: Boolean = false,
     val isPasswordVisible: Boolean = false,
+    val isLoading: Boolean = false,
     @StringRes val errorMessage: Int = 0
 )

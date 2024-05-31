@@ -8,19 +8,18 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(
     private val service: IAuthService,
     private val sessionManager: ISessionManager
-): IAuthRepository {
+) : IAuthRepository {
 
     override suspend fun authenticate(): Boolean {
         return try {
-            val isAuthenticated = service.authenticate().isSuccessful
-            if (!isAuthenticated) {
+            val response = service.authenticate()
+            val isAuthenticated = response.isSuccessful
+            if (!isAuthenticated && response.code() == 401) {
                 sessionManager.clearToken()
             }
             isAuthenticated
-        } catch (error: Throwable) {
-            val hasAuthToken = !sessionManager.fetchAuthToken().isNullOrBlank()
-            val isOffline = error is UnknownHostException
-            hasAuthToken && isOffline
+        } catch (error: UnknownHostException) {
+            !sessionManager.fetchAuthToken().isNullOrBlank()
         }
     }
 }

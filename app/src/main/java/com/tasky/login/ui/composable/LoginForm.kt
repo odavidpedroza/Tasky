@@ -23,6 +23,8 @@ fun LoginForm(
             EmailTextField(
                 email = state.email,
                 valid = state.isEmailValid,
+                focused = state.isEmailFocused,
+                onFocusChange = { onEvent(LoginEvent.UpdateFocus(it.hasFocus && it.isFocused)) },
                 onValueChange = { onEvent(LoginEvent.UpdateEmail(it)) },
                 requestFocus = true
             )

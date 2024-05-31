@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.tasky.R
 import com.tasky.login.domain.repository.ILoginRepository
 import com.tasky.login.domain.repository.ILoginRepository.LoginError
+import com.tasky.login.domain.repository.Result.Error
+import com.tasky.login.domain.repository.Result.Success
 import com.tasky.login.ui.LoginEvent
 import com.tasky.login.ui.LoginState
 import com.tasky.navigation.NavigationEvent
-import com.tasky.login.domain.repository.Result.Success
-import com.tasky.login.domain.repository.Result.Error
 import com.tasky.validator.UserDataValidator.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -35,21 +35,21 @@ class LoginViewModel @Inject constructor(
 
     fun onEvent(event: LoginEvent) {
         when (event) {
-            is LoginEvent.HideErrorMessage -> hideErrorMessage()
             is LoginEvent.Login -> login(event.email, event.password)
             is LoginEvent.UpdateEmail -> updateEmailValue(event.email)
-            is LoginEvent.ShowErrorMessage -> showErrorMessage(event.error)
+            is LoginEvent.UpdateFocus -> updateEmailFocus(event.focused)
             is LoginEvent.UpdatePassword -> updatePasswordValue(event.password)
-            is LoginEvent.UpdatePasswordVisibility -> updatePasswordVisibility()
+            is LoginEvent.ShowErrorMessage -> showErrorMessage(event.error)
+            LoginEvent.UpdatePasswordVisibility -> updatePasswordVisibility()
+            LoginEvent.HideErrorMessage -> hideErrorMessage()
+            LoginEvent.ShowLoading -> showLoading()
+            LoginEvent.HideLoading -> hideLoading()
             LoginEvent.NavigateToRegisterScreen -> navigateToRegisterScreen()
         }
     }
 
     fun login(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) {
-            showErrorMessage(LoginError.FIELDS_ARE_EMPTY)
-            return
-        }
+        hideErrorMessage()
         viewModelScope.launch {
             when (val result = repository.login(email, password)) {
                 is Success -> navigateToAgendaScreen()
@@ -62,7 +62,7 @@ class LoginViewModel @Inject constructor(
         hideErrorMessage()
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(
+                it.copy(
                     email = email,
                     isEmailValid = isValidEmail(email.text)
                 )
@@ -70,10 +70,21 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    private fun updateEmailFocus(isFocused: Boolean) {
+        hideErrorMessage()
+        viewModelScope.launch {
+            _state.update {
+                it.copy(isEmailFocused = isFocused)
+            }
+        }
+    }
+
     private fun updatePasswordValue(password: TextFieldValue) {
         hideErrorMessage()
         viewModelScope.launch {
-            _state.update { _state.value.copy(password = password) }
+            _state.update {
+                it.copy(password = password)
+            }
         }
     }
 
@@ -81,11 +92,30 @@ class LoginViewModel @Inject constructor(
         hideErrorMessage()
         viewModelScope.launch {
             val updatedValue = !_state.value.isPasswordVisible
-            _state.update { _state.value.copy(isPasswordVisible = updatedValue) }
+            _state.update {
+                it.copy(isPasswordVisible = updatedValue)
+            }
+        }
+    }
+
+    private fun showLoading() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(isLoading = true)
+            }
+        }
+    }
+
+    private fun hideLoading() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(isLoading = false)
+            }
         }
     }
 
     private fun navigateToRegisterScreen() {
+        hideLoading()
         hideErrorMessage()
         viewModelScope.launch {
             _navigationChannel.send(NavigationEvent.Login.NavigateToRegister)
@@ -93,6 +123,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun navigateToAgendaScreen() {
+        hideLoading()
         hideErrorMessage()
         viewModelScope.launch {
             _navigationChannel.send(NavigationEvent.Login.NavigateToAgenda)
@@ -100,15 +131,15 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun showErrorMessage(error: LoginError) {
+        hideLoading()
         val message = when (error) {
             LoginError.UNKNOWN -> R.string.generic_error
-            LoginError.FIELDS_ARE_EMPTY -> R.string.fields_must_not_be_empty
             LoginError.NO_CONNECTION -> R.string.no_connection_error
             LoginError.INVALID_EMAIL_OR_PASSWORD -> R.string.invalid_email_or_password_error
         }
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(errorMessage = message)
+                it.copy(errorMessage = message)
             }
         }
     }
@@ -116,7 +147,7 @@ class LoginViewModel @Inject constructor(
     private fun hideErrorMessage() {
         viewModelScope.launch {
             _state.update {
-                _state.value.copy(errorMessage = 0)
+                it.copy(errorMessage = 0)
             }
         }
     }

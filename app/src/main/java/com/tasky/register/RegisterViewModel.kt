@@ -66,7 +66,6 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private fun showErrorMessage(error: ILoginRepository.LoginError) {
         val message = when (error) {
             ILoginRepository.LoginError.UNKNOWN -> R.string.generic_error
-            ILoginRepository.LoginError.FIELDS_ARE_EMPTY -> R.string.fields_must_not_be_empty
             ILoginRepository.LoginError.NO_CONNECTION -> R.string.no_connection_error
             ILoginRepository.LoginError.INVALID_EMAIL_OR_PASSWORD -> R.string.invalid_email_or_password_error
         }

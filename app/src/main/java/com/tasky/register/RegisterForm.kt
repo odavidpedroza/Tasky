@@ -28,6 +28,7 @@ fun RegisterForm(
             EmailTextField(
                 email = state.email,
                 valid = state.isEmailValid,
+                focused = state.isEmailFocused,
                 onValueChange = { onEvent(RegisterEvent.UpdateEmail(it)) }
             )
             Spacer(modifier = Modifier.padding(4.dp))
