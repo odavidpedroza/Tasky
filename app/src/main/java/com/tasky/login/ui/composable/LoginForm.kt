@@ -35,7 +35,7 @@ fun LoginForm(
                 valid = state.isPasswordValid,
                 onIconClick = { onEvent(LoginEvent.UpdatePasswordVisibility) },
                 onValueChange = { onEvent(LoginEvent.UpdatePassword(it)) },
-                shouldValidate = false
+                validate = false
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }

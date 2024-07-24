@@ -31,7 +31,15 @@ fun RegisterScreen(
             BottomButton(
                 textId = R.string.get_started,
                 isEnabled = state.isNameValid && state.isEmailValid && state.isPasswordValid,
-                onClick = { TODO() }
+                onClick = {
+                    onEvent(
+                        RegisterEvent.Register(
+                            state.name.text,
+                            state.email.text,
+                            state.password.text
+                        )
+                    )
+                }
             )
             Spacer(Modifier.weight(1f))
             RegisterFloatingActionButton(

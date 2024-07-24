@@ -8,7 +8,7 @@ data class RegisterState(
     val email: TextFieldValue = TextFieldValue(""),
     val password: TextFieldValue = TextFieldValue(""),
     val isNameValid: Boolean = false,
-    val isNameFocused: Boolean = true,
+    val isNameFocused: Boolean = false,
     val isEmailValid: Boolean = false,
     val isEmailFocused: Boolean = false,
     val isPasswordValid: Boolean = false,

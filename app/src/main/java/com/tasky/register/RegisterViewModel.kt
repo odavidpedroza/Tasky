@@ -30,6 +30,7 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: RegisterEvent) {
         when (event) {
+            is RegisterEvent.Register -> register()
             is RegisterEvent.HideErrorMessage -> hideErrorMessage()
             is RegisterEvent.UpdateNameText -> updateNameValue(event.name)
             is RegisterEvent.UpdateNameFocus -> updateNameFocus(event.focused)
@@ -40,6 +41,10 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
             is RegisterEvent.ShowErrorMessage -> showErrorMessage(event.error)
             RegisterEvent.NavigateUp -> navigateUp()
         }
+    }
+
+    private fun register() {
+        // TODO perform user registration.
     }
 
     private fun updateNameValue(name: TextFieldValue) {

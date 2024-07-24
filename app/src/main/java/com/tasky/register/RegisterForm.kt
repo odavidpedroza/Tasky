@@ -41,7 +41,7 @@ fun RegisterForm(
                 valid = state.isPasswordValid,
                 onValueChange = { onEvent(RegisterEvent.UpdatePasswordText(it)) },
                 onIconClick = { onEvent(RegisterEvent.UpdatePasswordVisibility) },
-                shouldValidate = true
+                validate = true
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }

@@ -23,12 +23,12 @@ fun PasswordTextField(
     password: TextFieldValue,
     visible: Boolean,
     valid: Boolean,
-    shouldValidate: Boolean,
+    validate: Boolean,
     onValueChange: (TextFieldValue) -> Unit,
     onIconClick: () -> Unit
 ) {
 
-    val displayError = shouldValidate && !valid && password.text.isNotEmpty()
+    val displayError = validate && !valid && password.text.isNotEmpty()
 
     FormTextField(
         textFieldValue = password,
